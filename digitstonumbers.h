@@ -3,7 +3,7 @@
 
 #include <types.h>
 
-void digitsToNumbers(const Values& digits);
+void digitsToNumbers(const std::vector<int>& digits);
 
 #endif // DIGITSTINUMBERS_H
 

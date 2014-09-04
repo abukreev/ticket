@@ -7,10 +7,12 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-    Values digits;
+    vector<int> digits;
     if (!parseArgs(argc, argv, digits)) {
         return 1;
     }
+
+//    cout << "digits = " << digits << endl;
 
     digitsToNumbers(digits);
 

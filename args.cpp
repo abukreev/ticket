@@ -1,17 +1,32 @@
 #include <args.h>
+#include <iostream>
+#include <sstream>
 
-// static void printUsage() {
-// }
+static void printUsage() {
 
-bool parseArgs(int argc, char *argv[], Values& digits) {
+    cerr << "Usage: ticket [0-9]{1,}" << endl;
+}
+
+bool parseArgs(int argc, char *argv[], std::vector<int>& digits) {
+
+    if (argc < 2) {
+        printUsage();
+        return false;
+    }
 
     digits.clear();
-    digits.push_back(1);
-    digits.push_back(2);
-    digits.push_back(3);
-    digits.push_back(4);
-    digits.push_back(5);
-    digits.push_back(6);
+    for (int i = 1; i < argc; ++i) {
+        for (const char* p = argv[i]; *p != '\0'; ++p) {
+            int value;
+            string str = string(1, *p);
+            stringstream sstr(str);
+            if (!(sstr >> value)) {
+                cerr << "\'" << *p << "\' is not a valid decimal number" << endl;
+                return false;
+            }
+            digits.push_back(value);
+        }
+    }
 
     return true;
 }
