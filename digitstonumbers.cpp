@@ -27,11 +27,13 @@ static bool digitsToNumbersP(const vector<int>& numbers,
 //        cout << "numbers1      = " << numbers1 << endl;
         res = res || digitsToNumbersP(numbers1, shortenDigits);
 
-         if (!numbers.empty()) {
-             vector<int> numbers2 = numbers;
-             numbers2[numbers2.size() - 1] = 10 * numbers2[numbers2.size() - 1] + digit;
+        if (!numbers.empty()) {
+            vector<int> numbers2 = numbers;
+            numbers2[numbers2.size() - 1] = 10 * numbers2[numbers2.size() - 1] + digit;
 //             cout << "numbers2      = " << numbers2 << endl;
-             res = res || digitsToNumbersP(numbers2, shortenDigits);
+            if (digitsToNumbersP(numbers2, shortenDigits)) {
+                res = true;
+            }
          }
     } else {
 //        cout << numbers << endl;
@@ -42,7 +44,9 @@ static bool digitsToNumbersP(const vector<int>& numbers,
             values.push_back(Value(*i, str.str()));
         }
 //        cout << "values = " << values << endl;
-        res = res || calculate(values);
+        if (calculate(values)) {
+            res = true;
+        }
     }
 
     return res;

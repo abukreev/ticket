@@ -35,7 +35,9 @@ bool calculate(const Values& numbers) {
                  j != modifiedValues.end(); ++j) {
                 Values modifiedNumbers = sideNumbers;
                 modifiedNumbers[i - numbers.begin()] = *j;
-                res = res || calculate(modifiedNumbers);
+                if (calculate(modifiedNumbers)) {
+                    res = true;
+                }
             }
         }
     } else {
