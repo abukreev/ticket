@@ -14,7 +14,9 @@ int main(int argc, char* argv[]) {
 
 //    cout << "digits = " << digits << endl;
 
-    digitsToNumbers(digits);
+    if (!digitsToNumbers(digits)) {
+        cout << "No solution was found." << endl;
+    }
 
     return 0;
 }

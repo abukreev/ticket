@@ -5,44 +5,46 @@
 
 using namespace std;
 
-void calculate(const Values& numbers) {
+bool calculate(const Values& numbers) {
 
     assert(!numbers.empty());
+    bool res = false;
 //    cout << "calculate" << endl;
 //    cout << numbers << endl;
     if (numbers.size() > 1) {
         for (Values::const_iterator i = numbers.begin();
                 (i + 1) != numbers.end(); ++i) {
-            Values v;
+            Values sideNumbers;
             if (i != numbers.begin()) {
-                v.insert(v.end(), numbers.begin(), i);
+                sideNumbers.insert(sideNumbers.end(), numbers.begin(), i);
             }
-            v.push_back(Value());
+            sideNumbers.push_back(Value());
             if ((i + 2) != numbers.end()) {
-                v.insert(v.end(), i + 2, numbers.end());
+                sideNumbers.insert(sideNumbers.end(), i + 2, numbers.end());
             }
 
-            Values vAdd = v;
-            vAdd[i - numbers.begin()] = (*i + *(i + 1));
-            calculate(vAdd);
+            Values modifiedValues;
+            modifiedValues.push_back(*i +   *(i + 1));
+            modifiedValues.push_back(*i -   *(i + 1));
+            modifiedValues.push_back(*i *   *(i + 1));
+            modifiedValues.push_back(*i /   *(i + 1));
+            modifiedValues.push_back(*i * -(*(i + 1)));
+            modifiedValues.push_back(*i / -(*(i + 1)));
 
-            Values vSub = v;
-            vSub[i - numbers.begin()] = (*i - *(i + 1));
-            calculate(vSub);
-
-            Values vMul = v;
-            vMul[i - numbers.begin()] = (*i * *(i + 1));
-            calculate(vMul);
-
-            Values vDiv = v;
-            vDiv[i - numbers.begin()] = (*i / *(i + 1));
-            calculate(vDiv);
+            for (Values::const_iterator j = modifiedValues.begin();
+                 j != modifiedValues.end(); ++j) {
+                Values modifiedNumbers = sideNumbers;
+                modifiedNumbers[i - numbers.begin()] = *j;
+                res = res || calculate(modifiedNumbers);
+            }
         }
     } else {
         if (numbers[0].first == 100) {
             cout << numbers[0].second << " = 100" << endl;
+            res = true;
         } else {
 //            cout << "!=100" << endl;
         }
     }
+    return res;
 }

@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-void calculate(const Values& numbers);
+bool calculate(const Values& numbers);
 
 #endif // CLACULATE_H
 

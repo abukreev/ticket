@@ -8,6 +8,7 @@
 typedef std::pair<std::decimal::decimal32, std::string> Value;
 typedef std::vector<Value> Values;
 
+Value operator- (const Value& value);
 Value operator+ (const Value& left, const Value& right);
 Value operator- (const Value& left, const Value& right);
 Value operator* (const Value& left, const Value& right);

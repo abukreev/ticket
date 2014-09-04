@@ -1,5 +1,10 @@
 #include <types.h>
 
+Value operator- (const Value& value) {
+
+    return Value(-value.first, "(-" + value.second + ")");
+}
+
 Value operator+ (const Value& left, const Value& right) {
 
     return Value(left.first + right.first, "(" + left.second + "+" + right.second + ")");
