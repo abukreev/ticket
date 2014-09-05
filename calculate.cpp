@@ -5,16 +5,16 @@
 
 using namespace std;
 
-bool calculate(const Values& numbers) {
+bool calculate(const vector<NumText>& numbers) {
 
     assert(!numbers.empty());
     bool res = false;
 //    cout << "calculate" << endl;
 //    cout << numbers << endl;
     if (numbers.size() > 1) {
-        for (Values::const_iterator i = numbers.begin();
+        for (vector<NumText>::const_iterator i = numbers.begin();
                 (i + 1) != numbers.end(); ++i) {
-            Values sideNumbers;
+            vector<NumText> sideNumbers;
             if (i != numbers.begin()) {
                 sideNumbers.insert(sideNumbers.end(), numbers.begin(), i);
             }
@@ -23,7 +23,7 @@ bool calculate(const Values& numbers) {
                 sideNumbers.insert(sideNumbers.end(), i + 2, numbers.end());
             }
 
-            Values modifiedValues;
+            vector<NumText> modifiedValues;
             modifiedValues.push_back(*i +   *(i + 1));
             modifiedValues.push_back(*i -   *(i + 1));
             modifiedValues.push_back(*i *   *(i + 1));
@@ -31,9 +31,9 @@ bool calculate(const Values& numbers) {
             modifiedValues.push_back(*i * -(*(i + 1)));
             modifiedValues.push_back(*i / -(*(i + 1)));
 
-            for (Values::const_iterator j = modifiedValues.begin();
+            for (vector<NumText>::const_iterator j = modifiedValues.begin();
                  j != modifiedValues.end(); ++j) {
-                Values modifiedNumbers = sideNumbers;
+                vector<NumText> modifiedNumbers = sideNumbers;
                 modifiedNumbers[i - numbers.begin()] = *j;
                 if (calculate(modifiedNumbers)) {
                     res = true;

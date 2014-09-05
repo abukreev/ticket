@@ -37,7 +37,7 @@ static bool digitsToNumbersP(const vector<int>& numbers,
          }
     } else {
 //        cout << numbers << endl;
-        Values values;
+        vector<NumText> values;
         for (vector<int>::const_iterator i = numbers.begin(); i != numbers.end(); ++i) {
             NumText::Value ntv(*i);
             NumText nt(ntv);

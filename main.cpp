@@ -1,7 +1,8 @@
 #include <args.h>
 #include <digitstonumbers.h>
 #include <print.h>
-#include <numtext.h>
+
+#include <vector>
 
 using namespace std;
 

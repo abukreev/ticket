@@ -42,8 +42,6 @@ inline const NumText::Text& NumText::text() const {
     return d_text;
 }
 
-typedef std::vector<NumText> Values;
-
 std::ostream& operator<< (std::ostream& out,
                           std::decimal::decimal32 const& value);
 
