@@ -1,7 +1,7 @@
 CXX=g++
 CXXFLAGS= -c -Wall -I. 
 LDFLAGS=
-SOURCES=main.cpp args.cpp digitstonumbers.cpp calculate.cpp types.cpp
+SOURCES=main.cpp args.cpp digitstonumbers.cpp calculate.cpp numtext.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=ticket
 
