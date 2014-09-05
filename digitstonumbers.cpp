@@ -39,9 +39,9 @@ static bool digitsToNumbersP(const vector<int>& numbers,
 //        cout << numbers << endl;
         Values values;
         for (vector<int>::const_iterator i = numbers.begin(); i != numbers.end(); ++i) {
-            stringstream str;
-            str << *i;
-            values.push_back(Value(*i, str.str()));
+            NumText::Value ntv(*i);
+            NumText nt(ntv);
+            values.push_back(nt);
         }
 //        cout << "values = " << values << endl;
         if (calculate(values)) {

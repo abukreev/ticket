@@ -18,7 +18,7 @@ bool calculate(const Values& numbers) {
             if (i != numbers.begin()) {
                 sideNumbers.insert(sideNumbers.end(), numbers.begin(), i);
             }
-            sideNumbers.push_back(Value());
+            sideNumbers.push_back(NumText());
             if ((i + 2) != numbers.end()) {
                 sideNumbers.insert(sideNumbers.end(), i + 2, numbers.end());
             }
@@ -41,8 +41,8 @@ bool calculate(const Values& numbers) {
             }
         }
     } else {
-        if (numbers[0].first == 100) {
-            cout << numbers[0].second << " = 100" << endl;
+        if (numbers[0].value() == 100) {
+            cout << numbers[0].text() << " = 100" << endl;
             res = true;
         } else {
 //            cout << "!=100" << endl;

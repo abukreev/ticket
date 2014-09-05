@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-c -Wall -I. 
+CXXFLAGS= -c -Wall -I. 
 LDFLAGS=
 SOURCES=main.cpp args.cpp digitstonumbers.cpp calculate.cpp types.cpp
 OBJECTS=$(SOURCES:.cpp=.o)

@@ -1,39 +1,88 @@
 #include <types.h>
 
-Value operator- (const Value& value) {
+#include <sstream>
 
-    return Value(-value.first, "(-" + value.second + ")");
+using namespace std;
+
+NumText::NumText() {
+
+    setValue(0);
 }
 
-Value operator+ (const Value& left, const Value& right) {
+NumText::NumText(const Value& value) {
 
-    return Value(left.first + right.first, "(" + left.second + "+" + right.second + ")");
+    setValue(value);
 }
 
-Value operator- (const Value& left, const Value& right) {
+NumText::NumText(const Value& value, const Text& text) {
 
-    return Value(left.first - right.first, "(" + left.second + "-" + right.second + ")");
+    d_value = value;
+    d_text = text;
 }
 
-Value operator* (const Value& left, const Value& right) {
+NumText::NumText(const NumText& other) {
 
-    return Value(left.first * right.first, left.second + "*" + right.second);
+    *this = other;
 }
 
-Value operator/ (const Value& left, const Value& right) {
+void NumText::setValue(const Value& value) {
 
-    return Value(left.first / right.first, left.second + "/" + right.second);
+    d_value = value;
+    d_text = valueToText(value);
 }
 
-std::ostream& operator<< (std::ostream& os, const Value& value) {
+const NumText& NumText::operator= (const NumText& other) {
 
-    os << "(" << value.first << ":" << value.second << ")";
-    return os;
+    d_value = other.d_value;
+    d_text = other.d_text;
+    return *this;
 }
 
-std::ostream& operator<< (std::ostream& out,
-                          std::decimal::decimal32 const& value)
+NumText operator- (const NumText& value) {
+
+    return NumText(-value.value(), "(-" + value.text() + ")");
+}
+
+NumText operator+ (const NumText& left, const NumText& right) {
+
+    return NumText(left.value() + right.value(),
+            "(" + left.text() + "+" + right.text() + ")");
+}
+
+NumText operator- (const NumText& left, const NumText& right) {
+
+    return NumText(left.value() - right.value(),
+            "(" + left.text() + "-" + right.text() + ")");
+}
+
+NumText operator* (const NumText& left, const NumText& right) {
+
+    return NumText(left.value() * right.value(),
+            left.text() + "*" + right.text());
+}
+
+NumText operator/ (const NumText& left, const NumText& right) {
+
+    return NumText(left.value() / right.value(),
+            left.text() + "/" + right.text());
+}
+
+ostream& operator<< (ostream& out,
+                     const NumText& value)
+{
+    return out << "(" << value.value() << ":\'" << value.text() << "\')";
+}
+
+ostream& operator<< (ostream& out,
+                     decimal::decimal32 const& value)
 {
     return out << decimal_to_float(value);
+}
+
+NumText::Text NumText::valueToText(const NumText::Value& value) {
+
+    stringstream sstr;
+    sstr << decimal_to_float(value);
+    return sstr.str();
 }
 
