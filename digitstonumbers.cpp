@@ -7,7 +7,8 @@
 using namespace std;
 
 static bool digitsToNumbersP(const vector<int>& numbers,
-                             const vector<int>& digits) {
+                             const vector<int>& digits,
+                             bool oneResult) {
 
     bool res = false;
 //    cout << "digitsToNumbersP" << endl;
@@ -25,13 +26,21 @@ static bool digitsToNumbersP(const vector<int>& numbers,
         vector<int> numbers1 = numbers;
         numbers1.push_back(digit);
 //        cout << "numbers1      = " << numbers1 << endl;
-        res = res || digitsToNumbersP(numbers1, shortenDigits);
+        if (digitsToNumbersP(numbers1, shortenDigits, oneResult)) {
+            if (oneResult) {
+                return true;
+            }
+            res = true;
+        }
 
         if (!numbers.empty()) {
             vector<int> numbers2 = numbers;
             numbers2[numbers2.size() - 1] = 10 * numbers2[numbers2.size() - 1] + digit;
 //             cout << "numbers2      = " << numbers2 << endl;
-            if (digitsToNumbersP(numbers2, shortenDigits)) {
+            if (digitsToNumbersP(numbers2, shortenDigits, oneResult)) {
+                if (oneResult) {
+                    return true;
+                }
                 res = true;
             }
          }
@@ -44,7 +53,10 @@ static bool digitsToNumbersP(const vector<int>& numbers,
             values.push_back(nt);
         }
 //        cout << "values = " << values << endl;
-        if (calculate(values)) {
+        if (calculate(values, oneResult)) {
+            if (oneResult) {
+                return true;
+            }
             res = true;
         }
     }
@@ -52,9 +64,9 @@ static bool digitsToNumbersP(const vector<int>& numbers,
     return res;
 }
 
-bool digitsToNumbers(const vector<int>& digits) {
+bool digitsToNumbers(const vector<int>& digits, bool oneResult) {
 
     vector<int> numbers;
-    return digitsToNumbersP(numbers, digits);
+    return digitsToNumbersP(numbers, digits, oneResult);
 }
 

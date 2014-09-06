@@ -5,7 +5,7 @@
 
 using namespace std;
 
-bool calculate(const vector<NumText>& numbers) {
+bool calculate(const vector<NumText>& numbers, bool oneResult) {
 
     assert(!numbers.empty());
     bool res = false;
@@ -35,7 +35,10 @@ bool calculate(const vector<NumText>& numbers) {
                  j != modifiedValues.end(); ++j) {
                 vector<NumText> modifiedNumbers = sideNumbers;
                 modifiedNumbers[i - numbers.begin()] = *j;
-                if (calculate(modifiedNumbers)) {
+                if (calculate(modifiedNumbers, oneResult)) {
+                    if (oneResult) {
+                        return true;
+                    }
                     res = true;
                 }
             }

@@ -5,7 +5,9 @@
 
 using namespace std;
 
-bool parseArgs(int argc, char *argv[], std::vector<int>& digits);
+enum { EXIT_FAIL, EXIT_OK, RUN };
+
+int parseArgs(int argc, char *argv[], std::vector<int>& digits, bool& all);
 
 #endif // ARGS_H
 
