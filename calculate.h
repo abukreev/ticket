@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-bool calculate(const std::vector<NumText>& numbers, bool oneResult);
+bool calculate(const std::vector<NumText>& numbers);
 
 #endif // CLACULATE_H
 

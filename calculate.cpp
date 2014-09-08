@@ -1,11 +1,12 @@
 #include <calculate.h>
 #include <print.h>
+#include <config.h>
 #include <iostream>
 #include <assert.h>
 
 using namespace std;
 
-bool calculate(const vector<NumText>& numbers, bool oneResult) {
+bool calculate(const vector<NumText>& numbers) {
 
     assert(!numbers.empty());
     bool res = false;
@@ -35,8 +36,8 @@ bool calculate(const vector<NumText>& numbers, bool oneResult) {
                  j != modifiedValues.end(); ++j) {
                 vector<NumText> modifiedNumbers = sideNumbers;
                 modifiedNumbers[i - numbers.begin()] = *j;
-                if (calculate(modifiedNumbers, oneResult)) {
-                    if (oneResult) {
+                if (calculate(modifiedNumbers)) {
+                    if (!Config::instance()->all()) {
                         return true;
                     }
                     res = true;

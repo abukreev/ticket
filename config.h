@@ -18,6 +18,15 @@ public:
 };
 
 inline
+Config* Config::instance() {
+    if (0 == d_instance) {
+        d_instance = new Config();
+    }
+    return d_instance;
+}
+
+
+inline
 bool Config::all() {
     return d_all;
 }

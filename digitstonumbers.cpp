@@ -1,14 +1,14 @@
 #include <digitstonumbers.h>
 #include <print.h>
 #include <calculate.h>
+#include <config.h>
 #include <iostream>
 #include <sstream>
 
 using namespace std;
 
 static bool digitsToNumbersP(const vector<int>& numbers,
-                             const vector<int>& digits,
-                             bool oneResult) {
+                             const vector<int>& digits) {
 
     bool res = false;
 //    cout << "digitsToNumbersP" << endl;
@@ -26,8 +26,8 @@ static bool digitsToNumbersP(const vector<int>& numbers,
         vector<int> numbers1 = numbers;
         numbers1.push_back(digit);
 //        cout << "numbers1      = " << numbers1 << endl;
-        if (digitsToNumbersP(numbers1, shortenDigits, oneResult)) {
-            if (oneResult) {
+        if (digitsToNumbersP(numbers1, shortenDigits)) {
+            if (!Config::instance()->all()) {
                 return true;
             }
             res = true;
@@ -37,8 +37,8 @@ static bool digitsToNumbersP(const vector<int>& numbers,
             vector<int> numbers2 = numbers;
             numbers2[numbers2.size() - 1] = 10 * numbers2[numbers2.size() - 1] + digit;
 //             cout << "numbers2      = " << numbers2 << endl;
-            if (digitsToNumbersP(numbers2, shortenDigits, oneResult)) {
-                if (oneResult) {
+            if (digitsToNumbersP(numbers2, shortenDigits)) {
+                if (!Config::instance()->all()) {
                     return true;
                 }
                 res = true;
@@ -53,8 +53,8 @@ static bool digitsToNumbersP(const vector<int>& numbers,
             values.push_back(nt);
         }
 //        cout << "values = " << values << endl;
-        if (calculate(values, oneResult)) {
-            if (oneResult) {
+        if (calculate(values)) {
+            if (!Config::instance()->all()) {
                 return true;
             }
             res = true;
@@ -64,9 +64,9 @@ static bool digitsToNumbersP(const vector<int>& numbers,
     return res;
 }
 
-bool digitsToNumbers(const vector<int>& digits, bool oneResult) {
+bool digitsToNumbers(const vector<int>& digits) {
 
     vector<int> numbers;
-    return digitsToNumbersP(numbers, digits, oneResult);
+    return digitsToNumbersP(numbers, digits);
 }
 

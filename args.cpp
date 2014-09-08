@@ -1,7 +1,8 @@
 #include <args.h>
+#include <config.h>
+
 #include <iostream>
 #include <sstream>
-
 #include <getopt.h>
 
 static void printUsage() {
@@ -14,10 +15,10 @@ static void printVersion() {
     cerr << "ticket - Version 0.1" << endl;
 }
 
-int parseArgs(int argc, char *argv[], std::vector<int>& digits, bool& all) {
+int parseArgs(int argc, char *argv[]) {
 
    int result = RUN;
-   all = false;
+   Config::instance()->setAll(false);
 
    while (1) {
        static struct option long_options[] =
@@ -41,7 +42,7 @@ int parseArgs(int argc, char *argv[], std::vector<int>& digits, bool& all) {
 
         switch (c) {
         case 'a':
-            all = true;
+            Config::instance()->setAll(true);
             break;
         case 'h':
             printUsage();
@@ -66,7 +67,7 @@ int parseArgs(int argc, char *argv[], std::vector<int>& digits, bool& all) {
         return EXIT_FAIL;
     }
 
-    digits.clear();
+    vector<int> digits;
     for (int i = optind; i < argc; ++i) {
         for (const char* p = argv[i]; *p != '\0'; ++p) {
             int value;
@@ -79,6 +80,8 @@ int parseArgs(int argc, char *argv[], std::vector<int>& digits, bool& all) {
             digits.push_back(value);
         }
     }
+
+    Config::instance()->setDigits(digits);
 
     return RUN;
 }

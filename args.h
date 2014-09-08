@@ -7,7 +7,7 @@ using namespace std;
 
 enum { EXIT_FAIL, EXIT_OK, RUN };
 
-int parseArgs(int argc, char *argv[], std::vector<int>& digits, bool& all);
+int parseArgs(int argc, char *argv[]);
 
 #endif // ARGS_H
 
