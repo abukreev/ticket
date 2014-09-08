@@ -6,11 +6,13 @@ using namespace std;
 
 NumText::NumText() {
 
+    d_complexity = 0;
     setValue(0);
 }
 
 NumText::NumText(const Value& value) {
 
+    d_complexity = 0;
     setValue(value);
 }
 
@@ -18,13 +20,16 @@ NumText::NumText(const Value& value, const Text& text) {
 
     d_value = value;
     d_text = text;
+    d_complexity = 0;
 }
 
-NumText::NumText(const Value& value, const Text& text, bool needBraces) {
+NumText::NumText(const Value& value, const Text& text, bool needBraces,
+                 int complexity) {
 
     d_value = value;
     d_text = text;
     d_needBraces = needBraces;
+    d_complexity = complexity;
 }
 
 NumText::NumText(const NumText& other) {
@@ -49,35 +54,40 @@ const NumText& NumText::operator= (const NumText& other) {
 
 NumText operator- (const NumText& value) {
 
-    return NumText(-value.value(), "-" + value.textWithBraces(), true);
+    return NumText(-value.value(), "-" + value.textWithBraces(), true,
+                    value.complexity() + 1);
 }
 
 NumText operator+ (const NumText& left, const NumText& right) {
 
     return NumText(left.value() + right.value(),
                    left.text() + "+" + right.text(),
-                   true);
+                   true,
+                   max(left.complexity(), right.complexity()) + 1);
 }
 
 NumText operator- (const NumText& left, const NumText& right) {
 
     return NumText(left.value() - right.value(),
                    left.text() + "-" + right.textWithBraces(),
-                   true);
+                   true,
+                   max(left.complexity(), right.complexity()) + 1);
 }
 
 NumText operator* (const NumText& left, const NumText& right) {
 
     return NumText(left.value() * right.value(),
                    left.textWithBraces() + "*" + right.textWithBraces(),
-                   false);
+                   false,
+                   max(left.complexity(), right.complexity()) + 1);
 }
 
 NumText operator/ (const NumText& left, const NumText& right) {
 
     return NumText(left.value() / right.value(),
                    left.textWithBraces() + "/" + right.textWithBraces(),
-                   false);
+                   false,
+                   max(left.complexity(), right.complexity()) + 1);
 }
 
 ostream& operator<< (ostream& out,

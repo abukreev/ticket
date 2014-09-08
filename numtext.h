@@ -15,13 +15,16 @@ private:
     Text d_text;
     Text valueToText(const Value& value);
     bool d_needBraces;
+    int d_complexity;
 
 public:
     NumText();
     explicit NumText(const Value& value);
     NumText(const Value& value, const Text& text);
-    NumText(const Value& value, const Text& text, bool needBraces);
+    NumText(const Value& value, const Text& text, bool needBraces,
+            int complexity);
     NumText(const NumText& other);
+    int complexity() const;
     void setValue(const Value& value);
     const Value& value() const;
     Text textWithBraces() const;
@@ -34,6 +37,11 @@ NumText operator+ (const NumText& left, const NumText& right);
 NumText operator- (const NumText& left, const NumText& right);
 NumText operator* (const NumText& left, const NumText& right);
 NumText operator/ (const NumText& left, const NumText& right);
+
+inline int NumText::complexity() const {
+
+    return d_complexity;
+}
 
 inline const NumText::Value& NumText::value() const {
 
