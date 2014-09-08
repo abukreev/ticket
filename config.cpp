@@ -7,6 +7,10 @@ Config* Config::d_instance = 0;
 Config::Config() : d_answer(ANSWER_EXISTS) {
 }
 
+void Config::setTarget(int target) {
+    d_target = target;
+}
+
 void Config::setAnswer(Config::Answer answer) {
     d_answer = answer;
 }

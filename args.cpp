@@ -4,12 +4,14 @@
 #include <iostream>
 #include <sstream>
 #include <getopt.h>
+#include <stdlib.h>
 
 static void printUsage() {
 
     cerr << "Usage: ticket [0-9]{1,}" << endl <<
     "  -o, --one       Show one answer" << endl <<
     "  -a, --all       Show all answers" << endl <<
+    "  -t, --target    Target number" << endl <<
     "  -h, --help      Show this help and exit" << endl <<
     "  -v, --version   Print version and exit" << endl;
 }
@@ -24,23 +26,20 @@ int parseArgs(int argc, char *argv[]) {
     int result = RUN;
     Config::instance()->setAnswer(Config::ANSWER_EXISTS);
 
-    while (1) {
+    while (result == RUN) {
     
         static struct option long_options[] =
             {
             {"one",     no_argument, 0, 'o'},
             {"all",     no_argument, 0, 'a'},
+            {"target",  required_argument, 0, 't'},
             {"help",    no_argument, 0, 'h'},
             {"version", no_argument, 0, 'v'},
             {0, 0, 0, 0}
             };
 
         int option_index = 0;
-        char short_options[sizeof(long_options)/sizeof(long_options[0])] = {0};
-        for (size_t i = 0; i < sizeof(short_options); ++i) {
-            short_options[i] = long_options[i].val; 
-        }
-        int c = getopt_long (argc, argv, short_options, long_options, &option_index);
+        int c = getopt_long (argc, argv, "oat:hv", long_options, &option_index);
     
         if (c == 0) {
             break;
@@ -56,6 +55,18 @@ int parseArgs(int argc, char *argv[]) {
             break;
         case 'a':
             Config::instance()->setAnswer(Config::ANSWER_ALL);
+            break;
+        case 't':
+            {
+                stringstream strm(optarg);
+                int value;
+                if (strm >> value) {
+                    Config::instance()->setTarget(value);
+                } else {
+                    cerr << "\'" << optarg << "\'" << " is not a valid number" << endl;
+                    result = EXIT_FAIL;
+                }
+            }
             break;
         case 'h':
             printUsage();

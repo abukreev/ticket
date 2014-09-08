@@ -9,11 +9,14 @@ public:
 private:
     static Config* d_instance;
     std::vector<int> d_digits;
+    int d_target;
     Answer d_answer;
     Config();
     Config(const Config&);
 public:
     static Config* instance();
+    int target();
+    void setTarget(int target);
     Answer answer();
     void setAnswer(Answer answer);
     std::vector<int> digits();
@@ -28,6 +31,10 @@ Config* Config::instance() {
     return d_instance;
 }
 
+inline
+int Config::target() {
+    return d_target;
+}
 
 inline
 Config::Answer Config::answer() {

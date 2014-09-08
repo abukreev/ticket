@@ -46,10 +46,10 @@ bool calculate(const vector<NumText>& numbers) {
             }
         }
     } else {
-        if (numbers[0].value() == 100) {
+        if (numbers[0].value() == Config::instance()->target()) {
             if (Config::instance()->answer() == Config::ANSWER_ONE || 
                 Config::instance()->answer() == Config::ANSWER_ALL) {
-                cout << numbers[0].text() << " = 100" << endl;
+                cout << numbers[0].text() << " = " << Config::instance()->target() << endl;
             }
             res = true;
         } else {
