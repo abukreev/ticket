@@ -4,7 +4,7 @@ using namespace std;
 
 Config* Config::d_instance = 0;
 
-Config::Config() : d_answer(ANSWER_EXISTS) {
+Config::Config() : d_target(100), d_answer(ANSWER_EXISTS) {
 }
 
 void Config::setTarget(int target) {
