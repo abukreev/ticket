@@ -64,5 +64,9 @@ inline const NumText::Text& NumText::text() const {
 std::ostream& operator<< (std::ostream& out,
                           std::decimal::decimal32 const& value);
 
+bool simpler(const NumText& left, const NumText& right);
+
+bool complexer(const NumText& left, const NumText& right);
+
 #endif // NUMTEXT_H
 

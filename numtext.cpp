@@ -49,6 +49,7 @@ const NumText& NumText::operator= (const NumText& other) {
     d_value = other.d_value;
     d_text = other.d_text;
     d_needBraces = other.d_needBraces;
+    d_complexity = other.d_complexity;
     return *this;
 }
 
@@ -107,5 +108,14 @@ NumText::Text NumText::valueToText(const NumText::Value& value) {
     stringstream sstr;
     sstr << decimal_to_float(value);
     return sstr.str();
+}
+
+bool simpler(const NumText& left, const NumText& right) {
+
+    return left.complexity() < right.complexity();
+}
+
+bool complexer(const NumText& left, const NumText& right) {
+    return !simpler(left, right);
 }
 

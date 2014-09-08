@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <assert.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -36,6 +37,7 @@ int main(int argc, char* argv[]) {
         } else if (Config::instance()->answer() == Config::ANSWER_ONE) {
             printResult(g_results[0]);
         } else if (Config::instance()->answer() == Config::ANSWER_ALL) {
+            std::sort(g_results.begin(), g_results.end(), simpler);
             for (vector<NumText>::const_iterator i = g_results.begin();
                  i != g_results.end(); ++i) {
                 printResult(*i);
