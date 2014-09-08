@@ -7,7 +7,11 @@
 
 static void printUsage() {
 
-    cerr << "Usage: ticket [0-9]{1,}" << endl;
+    cerr << "Usage: ticket [0-9]{1,}" << endl <<
+    "  -o, --one       Show one answer" << endl <<
+    "  -a, --all       Show all answers" << endl <<
+    "  -h, --help      Show this help and exit" << endl <<
+    "  -v, --version   Print version and exit" << endl;
 }
 
 static void printVersion() {
@@ -17,18 +21,19 @@ static void printVersion() {
 
 int parseArgs(int argc, char *argv[]) {
 
-   int result = RUN;
-   Config::instance()->setAnswer(Config::ANSWER_EXISTS);
+    int result = RUN;
+    Config::instance()->setAnswer(Config::ANSWER_EXISTS);
 
-   while (1) {
-       static struct option long_options[] =
-           {
-           {"one",     no_argument, 0, 'o'},
-           {"all",     no_argument, 0, 'a'},
-           {"help",    no_argument, 0, 'h'},
-           {"version", no_argument, 0, 'v'},
-           {0, 0, 0, 0}
-           };
+    while (1) {
+    
+        static struct option long_options[] =
+            {
+            {"one",     no_argument, 0, 'o'},
+            {"all",     no_argument, 0, 'a'},
+            {"help",    no_argument, 0, 'h'},
+            {"version", no_argument, 0, 'v'},
+            {0, 0, 0, 0}
+            };
 
         int option_index = 0;
         char short_options[sizeof(long_options)/sizeof(long_options[0])] = {0};
