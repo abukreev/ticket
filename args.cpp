@@ -9,6 +9,7 @@
 static void printUsage() {
 
     cerr << "Usage: ticket [0-9]{1,}" << endl <<
+    "  -e, --exists    Show if an answer exists" << endl <<
     "  -o, --one       Show one answer" << endl <<
     "  -a, --all       Show all answers" << endl <<
     "  -t, --target    Target number" << endl <<
@@ -30,6 +31,7 @@ int parseArgs(int argc, char *argv[]) {
     
         static struct option long_options[] =
             {
+            {"exists",  no_argument, 0, 'e'},
             {"one",     no_argument, 0, 'o'},
             {"all",     no_argument, 0, 'a'},
             {"target",  required_argument, 0, 't'},
@@ -39,7 +41,7 @@ int parseArgs(int argc, char *argv[]) {
             };
 
         int option_index = 0;
-        int c = getopt_long (argc, argv, "oat:hv", long_options, &option_index);
+        int c = getopt_long (argc, argv, "eoat:hv", long_options, &option_index);
     
         if (c == 0) {
             break;
@@ -50,6 +52,9 @@ int parseArgs(int argc, char *argv[]) {
         }
 
         switch (c) {
+        case 'e':
+            Config::instance()->setAnswer(Config::ANSWER_EXISTS);
+            break;
         case 'o':
             Config::instance()->setAnswer(Config::ANSWER_ONE);
             break;
