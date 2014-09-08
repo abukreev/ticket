@@ -18,7 +18,11 @@ int main(int argc, char* argv[]) {
 
 //    cout << "digits = " << digits << endl;
 
-    if (!digitsToNumbers(Config::instance()->digits())) {
+    if (digitsToNumbers(Config::instance()->digits())) {
+        if (Config::instance()->answer() == Config::ANSWER_EXISTS) {
+            cout << "Solution exists." << endl;
+        }
+    } else {
         cout << "No solution was found." << endl;
     }
 

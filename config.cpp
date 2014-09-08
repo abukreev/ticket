@@ -4,11 +4,11 @@ using namespace std;
 
 Config* Config::d_instance = 0;
 
-Config::Config() : d_all(false) {
+Config::Config() : d_answer(ANSWER_EXISTS) {
 }
 
-void Config::setAll(bool all) {
-    d_all = all;
+void Config::setAnswer(Config::Answer answer) {
+    d_answer = answer;
 }
 
 void Config::setDigits(const vector<int>& digits) {

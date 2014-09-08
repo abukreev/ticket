@@ -18,11 +18,12 @@ static void printVersion() {
 int parseArgs(int argc, char *argv[]) {
 
    int result = RUN;
-   Config::instance()->setAll(false);
+   Config::instance()->setAnswer(Config::ANSWER_EXISTS);
 
    while (1) {
        static struct option long_options[] =
            {
+           {"one",     no_argument, 0, 'o'},
            {"all",     no_argument, 0, 'a'},
            {"help",    no_argument, 0, 'h'},
            {"version", no_argument, 0, 'v'},
@@ -30,7 +31,11 @@ int parseArgs(int argc, char *argv[]) {
            };
 
         int option_index = 0;
-        int c = getopt_long (argc, argv, "ahv", long_options, &option_index);
+        char short_options[sizeof(long_options)/sizeof(long_options[0])] = {0};
+        for (size_t i = 0; i < sizeof(short_options); ++i) {
+            short_options[i] = long_options[i].val; 
+        }
+        int c = getopt_long (argc, argv, short_options, long_options, &option_index);
     
         if (c == 0) {
             break;
@@ -41,8 +46,11 @@ int parseArgs(int argc, char *argv[]) {
         }
 
         switch (c) {
+        case 'o':
+            Config::instance()->setAnswer(Config::ANSWER_ONE);
+            break;
         case 'a':
-            Config::instance()->setAll(true);
+            Config::instance()->setAnswer(Config::ANSWER_ALL);
             break;
         case 'h':
             printUsage();

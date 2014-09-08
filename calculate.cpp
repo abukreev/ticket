@@ -37,7 +37,8 @@ bool calculate(const vector<NumText>& numbers) {
                 vector<NumText> modifiedNumbers = sideNumbers;
                 modifiedNumbers[i - numbers.begin()] = *j;
                 if (calculate(modifiedNumbers)) {
-                    if (!Config::instance()->all()) {
+                    if (Config::instance()->answer() == Config::ANSWER_EXISTS || 
+                        Config::instance()->answer() == Config::ANSWER_ONE) {
                         return true;
                     }
                     res = true;
@@ -46,7 +47,10 @@ bool calculate(const vector<NumText>& numbers) {
         }
     } else {
         if (numbers[0].value() == 100) {
-            cout << numbers[0].text() << " = 100" << endl;
+            if (Config::instance()->answer() == Config::ANSWER_ONE || 
+                Config::instance()->answer() == Config::ANSWER_ALL) {
+                cout << numbers[0].text() << " = 100" << endl;
+            }
             res = true;
         } else {
 //            cout << "!=100" << endl;

@@ -4,15 +4,18 @@
 #include <vector>
 
 class Config {
+public:
+    enum Answer { ANSWER_EXISTS, ANSWER_ONE, ANSWER_ALL };
+private:
     static Config* d_instance;
     std::vector<int> d_digits;
-    bool d_all;
+    Answer d_answer;
     Config();
     Config(const Config&);
 public:
     static Config* instance();
-    bool all();
-    void setAll(bool all);
+    Answer answer();
+    void setAnswer(Answer answer);
     std::vector<int> digits();
     void setDigits(const std::vector<int>& digits);
 };
@@ -27,8 +30,8 @@ Config* Config::instance() {
 
 
 inline
-bool Config::all() {
-    return d_all;
+Config::Answer Config::answer() {
+    return d_answer;
 }
 
 inline
