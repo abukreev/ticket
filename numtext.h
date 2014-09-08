@@ -14,14 +14,17 @@ private:
     Value d_value;
     Text d_text;
     Text valueToText(const Value& value);
+    bool d_needBraces;
 
 public:
     NumText();
     explicit NumText(const Value& value);
     NumText(const Value& value, const Text& text);
+    NumText(const Value& value, const Text& text, bool needBraces);
     NumText(const NumText& other);
     void setValue(const Value& value);
     const Value& value() const;
+    Text textWithBraces() const;
     const Text& text() const;
     const NumText& operator= (const NumText& other);
 };
@@ -37,6 +40,14 @@ inline const NumText::Value& NumText::value() const {
     return d_value;
 }
 
+inline NumText::Text NumText::textWithBraces() const {
+
+    if (d_needBraces) {
+        return "(" + d_text + ")";
+    } else {
+        return d_text;
+    }
+}
 inline const NumText::Text& NumText::text() const {
 
     return d_text;
