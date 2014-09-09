@@ -56,7 +56,7 @@ const NumText& NumText::operator= (const NumText& other) {
 NumText operator- (const NumText& value) {
 
     return NumText(-value.value(), "-" + value.textWithBraces(), true,
-                    value.complexity() + 1);
+                    value.complexity() + 2);
 }
 
 NumText operator+ (const NumText& left, const NumText& right) {
@@ -72,7 +72,7 @@ NumText operator- (const NumText& left, const NumText& right) {
     return NumText(left.value() - right.value(),
                    left.text() + "-" + right.textWithBraces(),
                    true,
-                   max(left.complexity(), right.complexity()) + 1);
+                   max(left.complexity(), right.complexity()) + 2);
 }
 
 NumText operator* (const NumText& left, const NumText& right) {
@@ -80,7 +80,7 @@ NumText operator* (const NumText& left, const NumText& right) {
     return NumText(left.value() * right.value(),
                    left.textWithBraces() + "*" + right.textWithBraces(),
                    false,
-                   max(left.complexity(), right.complexity()) + 1);
+                   max(left.complexity(), right.complexity()) + 3);
 }
 
 NumText operator/ (const NumText& left, const NumText& right) {
@@ -88,7 +88,7 @@ NumText operator/ (const NumText& left, const NumText& right) {
     return NumText(left.value() / right.value(),
                    left.textWithBraces() + "/" + right.textWithBraces(),
                    false,
-                   max(left.complexity(), right.complexity()) + 1);
+                   max(left.complexity(), right.complexity()) + 4);
 }
 
 ostream& operator<< (ostream& out,

@@ -1,6 +1,8 @@
 #include <calculate.h>
 #include <print.h>
 #include <config.h>
+#include <results.h>
+
 #include <globals.h>
 #include <iostream>
 #include <assert.h>
@@ -48,10 +50,11 @@ bool calculate(const vector<NumText>& numbers) {
     } else {
         assert(numbers.size() == 1);
         if (numbers[0].value() == Config::instance()->target()) {
-            g_results.push_back(numbers[0]);
+            Results::instance()->addSolution(numbers[0]);
             res = true;
         } else {
 //            cout << "!=100" << endl;
+            res = false;
         }
     }
     return res;
