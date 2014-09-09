@@ -68,5 +68,7 @@ bool simpler(const NumText& left, const NumText& right);
 
 bool complexer(const NumText& left, const NumText& right);
 
+bool same(const NumText& left, const NumText& right);
+
 #endif // NUMTEXT_H
 

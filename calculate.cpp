@@ -38,8 +38,7 @@ bool calculate(const vector<NumText>& numbers) {
                 vector<NumText> modifiedNumbers = sideNumbers;
                 modifiedNumbers[i - numbers.begin()] = *j;
                 if (calculate(modifiedNumbers)) {
-                    if (Config::instance()->answer() == Config::ANSWER_EXISTS || 
-                        Config::instance()->answer() == Config::ANSWER_ONE) {
+                    if (Config::instance()->answer() == Config::ANSWER_EXISTS) {
                         return true;
                     }
                     res = true;

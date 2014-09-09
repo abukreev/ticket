@@ -119,3 +119,6 @@ bool complexer(const NumText& left, const NumText& right) {
     return !simpler(left, right);
 }
 
+bool same(const NumText& left, const NumText& right) {
+    return left.text() == right.text();
+}

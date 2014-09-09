@@ -27,8 +27,7 @@ static bool digitsToNumbersP(const vector<int>& numbers,
         numbers1.push_back(digit);
 //        cout << "numbers1      = " << numbers1 << endl;
         if (digitsToNumbersP(numbers1, shortenDigits)) {
-            if (Config::instance()->answer() == Config::ANSWER_EXISTS || 
-                Config::instance()->answer() == Config::ANSWER_ONE) {
+            if (Config::instance()->answer() == Config::ANSWER_EXISTS) {
                 return true;
             }
             res = true;
@@ -39,8 +38,7 @@ static bool digitsToNumbersP(const vector<int>& numbers,
             numbers2[numbers2.size() - 1] = 10 * numbers2[numbers2.size() - 1] + digit;
 //             cout << "numbers2      = " << numbers2 << endl;
             if (digitsToNumbersP(numbers2, shortenDigits)) {
-                if (Config::instance()->answer() == Config::ANSWER_EXISTS || 
-                    Config::instance()->answer() == Config::ANSWER_ONE) {
+                if (Config::instance()->answer() == Config::ANSWER_EXISTS) {
                     return true;
                 }
                 res = true;
@@ -56,8 +54,7 @@ static bool digitsToNumbersP(const vector<int>& numbers,
         }
 //        cout << "values = " << values << endl;
         if (calculate(values)) {
-            if (Config::instance()->answer() == Config::ANSWER_EXISTS || 
-                Config::instance()->answer() == Config::ANSWER_ONE) {
+            if (Config::instance()->answer() == Config::ANSWER_EXISTS) {
                 return true;
             }
             res = true;

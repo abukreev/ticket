@@ -30,17 +30,22 @@ int main(int argc, char* argv[]) {
 
     g_results.clear();
 
-    if (digitsToNumbers(Config::instance()->digits())) {
+    Config* config = Config::instance();
+
+    if (digitsToNumbers(config->digits())) {
         assert(!g_results.empty());
-        if (Config::instance()->answer() == Config::ANSWER_EXISTS) {
+        Config::Answer answer = config->answer();
+        if (Config::ANSWER_EXISTS == answer) {
             cout << "Solution exists." << endl;
-        } else if (Config::instance()->answer() == Config::ANSWER_ONE) {
-            printResult(g_results[0]);
-        } else if (Config::instance()->answer() == Config::ANSWER_ALL) {
-            std::sort(g_results.begin(), g_results.end(), simpler);
-            for (vector<NumText>::const_iterator i = g_results.begin();
-                 i != g_results.end(); ++i) {
-                printResult(*i);
+        } else if (Config::ANSWER_BEST == answer ||
+                   Config::ANSWER_ALL  == answer) {
+            sort(g_results.begin(), g_results.end(), simpler);
+            g_results.erase(unique(g_results.begin(), g_results.end(), same), g_results.end());
+            int amount = (config->answer() == Config::ANSWER_BEST ?
+                    min(config->numberOfAnswers(), g_results.size()) :
+                                                   g_results.size());
+            for (int i = 0; i < amount; ++i) {
+                printResult(g_results[i]);
             }
         }
     } else {
