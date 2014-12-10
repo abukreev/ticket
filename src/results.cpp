@@ -31,7 +31,8 @@ void Results::addSolution(const NumText& solution) {
 void Results::sort() {
 
     std::sort(d_solutions.begin(), d_solutions.end(), simpler);
-//    d_solutions.erase(unique(d_solutions.begin(), d_solutions.end(), same), d_solutions.end());
+    d_solutions.erase(unique(d_solutions.begin(), d_solutions.end(), same),
+                      d_solutions.end());
 }
 
 void Results::print(std::ostream& os) {
