@@ -10,7 +10,7 @@ static void printUsage() {
 
     cerr << "Usage: ticket [0-9]{1,}" << endl <<
     "  -e, --exists    Show if any solition exists" << endl <<
-    "  -o, --b         Show N best solutions" << endl <<
+    "  -b, --best      Show N best solutions (1 default)" << endl <<
     "  -a, --all       Show all solitions" << endl <<
     "  -t, --target    Target number" << endl <<
     "  -h, --help      Show this help and exit" << endl <<
@@ -32,7 +32,7 @@ int parseArgs(int argc, char *argv[]) {
         static struct option long_options[] =
             {
             {"exists",  no_argument,       0, 'e'},
-            {"best",    optional_argument, 0, 'b'},
+            {"best",    no_argument,       0, 'b'},
             {"all",     no_argument,       0, 'a'},
             {"target",  required_argument, 0, 't'},
             {"help",    no_argument,       0, 'h'},
@@ -41,7 +41,7 @@ int parseArgs(int argc, char *argv[]) {
             };
 
         int option_index = 0;
-        int c = getopt_long (argc, argv, "ebb:at:hv", long_options, &option_index);
+        int c = getopt_long (argc, argv, "ebat:hv", long_options, &option_index);
     
         if (c == 0) {
             break;
@@ -56,19 +56,8 @@ int parseArgs(int argc, char *argv[]) {
             Config::instance()->setAnswer(Config::ANSWER_EXISTS);
             break;
         case 'b':
-            {
-                Config::instance()->setAnswer(Config::ANSWER_BEST);
-                if (NULL != optarg) {
-                    stringstream strm(optarg);
-                    int value;
-                    if (strm >> value) {
-                        Config::instance()->setNumberOfAnswers(value);
-                    } else {
-                        cerr << "\'" << optarg << "\'" << " is not a valid number" << endl;
-                        result = EXIT_FAIL;
-                    }
-                }
-            }
+            Config::instance()->setAnswer(Config::ANSWER_BEST);
+            Config::instance()->setNumberOfAnswers(1);
             break;
         case 'a':
             Config::instance()->setAnswer(Config::ANSWER_ALL);
