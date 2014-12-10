@@ -8,13 +8,13 @@
 
 static void printUsage() {
 
-    cerr << "Usage: ticket [0-9]{1,}" << endl <<
-    "  -e, --exists    Show if any solition exists" << endl <<
-    "  -b, --best      Show N best solutions (1 default)" << endl <<
-    "  -a, --all       Show all solitions" << endl <<
-    "  -t, --target    Target number" << endl <<
-    "  -h, --help      Show this help and exit" << endl <<
-    "  -v, --version   Print version and exit" << endl;
+    cerr << "Usage: ticket [0-9]{1,}" << endl;
+    cerr << "  -e, --exists    Only show if a solition exists" << endl;
+    cerr << "  -b, --best      Show N best solutions (1 default)" << endl;
+    cerr << "  -a, --all       Show all solitions" << endl;
+    cerr << "  -t, --target    Target number" << endl;
+    cerr << "  -h, --help      Show this help and exit" << endl;
+    cerr << "  -v, --version   Print version and exit" << endl;
 }
 
 static void printVersion() {
