@@ -25,6 +25,7 @@ int main(int argc, char* argv[]) {
     Config* config = Config::instance();
     
     digitsToNumbers(config->digits());
+
     if (!Results::instance()->solutions().empty()) {
         Config::Answer answer = config->answer();
         if (Config::ANSWER_EXISTS == answer) {

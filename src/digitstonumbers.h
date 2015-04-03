@@ -4,7 +4,7 @@
 #include <vector>
 #include <numtext.h>
 
-bool digitsToNumbers(const std::vector<int>& digits);
+void digitsToNumbers(const std::vector<int>& digits);
 
 #endif // DIGITSTINUMBERS_H
 

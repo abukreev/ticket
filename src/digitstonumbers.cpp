@@ -7,10 +7,9 @@
 
 using namespace std;
 
-static bool digitsToNumbersP(const vector<int>& numbers,
+static void digitsToNumbersP(const vector<int>& numbers,
                              const vector<int>& digits) {
 
-    bool res = false;
 //    cout << "digitsToNumbersP" << endl;
 //    cout << "numbers       = " << numbers << endl;
 //    cout << "digits        = " << digits  << endl;
@@ -26,23 +25,13 @@ static bool digitsToNumbersP(const vector<int>& numbers,
         vector<int> numbers1 = numbers;
         numbers1.push_back(digit);
 //        cout << "numbers1      = " << numbers1 << endl;
-        if (digitsToNumbersP(numbers1, shortenDigits)) {
-            if (Config::instance()->answer() == Config::ANSWER_EXISTS) {
-                return true;
-            }
-            res = true;
-        }
+        digitsToNumbersP(numbers1, shortenDigits);
 
         if (!numbers.empty()) {
             vector<int> numbers2 = numbers;
             numbers2[numbers2.size() - 1] = 10 * numbers2[numbers2.size() - 1] + digit;
 //             cout << "numbers2      = " << numbers2 << endl;
-            if (digitsToNumbersP(numbers2, shortenDigits)) {
-                if (Config::instance()->answer() == Config::ANSWER_EXISTS) {
-                    return true;
-                }
-                res = true;
-            }
+            digitsToNumbersP(numbers2, shortenDigits);
          }
     } else {
 //        cout << numbers << endl;
@@ -53,20 +42,13 @@ static bool digitsToNumbersP(const vector<int>& numbers,
             values.push_back(nt);
         }
 //        cout << "values = " << values << endl;
-        if (calculate(values)) {
-            if (Config::instance()->answer() == Config::ANSWER_EXISTS) {
-                return true;
-            }
-            res = true;
-        }
+        calculate(values);
     }
-
-    return res;
 }
 
-bool digitsToNumbers(const vector<int>& digits) {
+void digitsToNumbers(const vector<int>& digits) {
 
     vector<int> numbers;
-    return digitsToNumbersP(numbers, digits);
+    digitsToNumbersP(numbers, digits);
 }
 

@@ -9,10 +9,9 @@
 
 using namespace std;
 
-bool calculate(const vector<NumText>& numbers) {
+void calculate(const vector<NumText>& numbers) {
 
     assert(!numbers.empty());
-    bool res = false;
 //    cout << "calculate" << endl;
 //    cout << numbers << endl;
     if (numbers.size() > 1) {
@@ -39,23 +38,14 @@ bool calculate(const vector<NumText>& numbers) {
                  j != modifiedValues.end(); ++j) {
                 vector<NumText> modifiedNumbers = sideNumbers;
                 modifiedNumbers[i - numbers.begin()] = *j;
-                if (calculate(modifiedNumbers)) {
-                    if (Config::instance()->answer() == Config::ANSWER_EXISTS) {
-                        return true;
-                    }
-                    res = true;
-                }
+                calculate(modifiedNumbers);
             }
         }
     } else {
         assert(numbers.size() == 1);
         if (numbers[0].value() == Config::instance()->target()) {
             Results::instance()->addSolution(numbers[0]);
-            res = true;
         } else {
-//            cout << "!=100" << endl;
-            res = false;
         }
     }
-    return res;
 }
