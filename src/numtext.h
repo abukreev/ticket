@@ -9,19 +9,20 @@ class NumText {
 public:
     typedef std::decimal::decimal32 Value;
     typedef std::string Text;
+    enum Braces { NoBraces, NeedBraces };
 
 private:
     Value d_value;
     Text d_text;
     Text valueToText(const Value& value);
-    bool d_needBraces;
+    Braces d_braces;
     int d_complexity;
 
 public:
     NumText();
     explicit NumText(const Value& value);
     NumText(const Value& value, const Text& text);
-    NumText(const Value& value, const Text& text, bool needBraces,
+    NumText(const Value& value, const Text& text, Braces braces,
             int complexity);
     NumText(const NumText& other);
     int complexity() const;
@@ -50,7 +51,7 @@ inline const NumText::Value& NumText::value() const {
 
 inline NumText::Text NumText::textWithBraces() const {
 
-    if (d_needBraces) {
+    if (NeedBraces == d_braces) {
         return "(" + d_text + ")";
     } else {
         return d_text;

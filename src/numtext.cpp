@@ -23,12 +23,12 @@ NumText::NumText(const Value& value, const Text& text) {
     d_complexity = 0;
 }
 
-NumText::NumText(const Value& value, const Text& text, bool needBraces,
+NumText::NumText(const Value& value, const Text& text, Braces braces,
                  int complexity) {
 
     d_value = value;
     d_text = text;
-    d_needBraces = needBraces;
+    d_braces = braces;
     d_complexity = complexity;
 }
 
@@ -41,29 +41,29 @@ void NumText::setValue(const Value& value) {
 
     d_value = value;
     d_text = valueToText(value);
-    d_needBraces = false;
+    d_braces = NoBraces;
 }
 
 const NumText& NumText::operator= (const NumText& other) {
 
     d_value = other.d_value;
     d_text = other.d_text;
-    d_needBraces = other.d_needBraces;
+    d_braces = other.d_braces;
     d_complexity = other.d_complexity;
     return *this;
 }
 
 NumText operator- (const NumText& value) {
 
-    return NumText(-value.value(), "-" + value.textWithBraces(), true,
-                    value.complexity() + 2);
+    return NumText(-value.value(), "-" + value.textWithBraces(),
+                   NumText::NeedBraces, value.complexity() + 2);
 }
 
 NumText operator+ (const NumText& left, const NumText& right) {
 
     return NumText(left.value() + right.value(),
                    left.text() + "+" + right.text(),
-                   true,
+                   NumText::NeedBraces,
                    max(left.complexity(), right.complexity()) + 1);
 }
 
@@ -71,7 +71,7 @@ NumText operator- (const NumText& left, const NumText& right) {
 
     return NumText(left.value() - right.value(),
                    left.text() + "-" + right.textWithBraces(),
-                   true,
+                   NumText::NeedBraces,
                    max(left.complexity(), right.complexity()) + 2);
 }
 
@@ -79,7 +79,7 @@ NumText operator* (const NumText& left, const NumText& right) {
 
     return NumText(left.value() * right.value(),
                    left.textWithBraces() + "*" + right.textWithBraces(),
-                   false,
+                   NumText::NoBraces,
                    max(left.complexity(), right.complexity()) + 3);
 }
 
@@ -87,7 +87,7 @@ NumText operator/ (const NumText& left, const NumText& right) {
 
     return NumText(left.value() / right.value(),
                    left.textWithBraces() + "/" + right.textWithBraces(),
-                   false,
+                   NumText::NoBraces,
                    max(left.complexity(), right.complexity()) + 4);
 }
 
