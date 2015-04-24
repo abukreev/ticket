@@ -7,7 +7,8 @@ using namespace std;
 
 Results* Results::d_instance = NULL;
 
-Results::Results() {
+Results::Results()
+: d_cb(NULL) {
 }
 
 Results* Results::instance() {
@@ -26,6 +27,9 @@ void Results::clear() {
 void Results::addSolution(const NumText& solution) {
 
     d_solutions.push_back(solution);
+    if (NULL != d_cb) {
+        d_cb();
+    }
 }
 
 void Results::sort() {
@@ -48,5 +52,10 @@ void Results::print(std::ostream& os) {
              << (int) d_solutions[i].value()
              << endl;
     }
+}
+
+void Results::setCallback(Results::CallbackT cb) {
+
+    d_cb = cb;
 }
 

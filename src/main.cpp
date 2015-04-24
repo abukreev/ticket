@@ -10,6 +10,10 @@
 
 using namespace std;
 
+void callback() {
+
+    cout << "callback" << endl;
+}
 
 int main(int argc, char* argv[]) {
 
@@ -21,6 +25,7 @@ int main(int argc, char* argv[]) {
     }
 
     Results::instance()->clear();
+    Results::instance()->setCallback(callback);
 
     Config* config = Config::instance();
     
