@@ -53,10 +53,12 @@ const NumText& NumText::operator= (const NumText& other) {
     return *this;
 }
 
-NumText operator- (const NumText& value) {
+NumText operator- (const NumText& numText) {
 
-    return NumText(-value.value(), "-" + value.textWithBraces(),
-                   NumText::NeedBraces, value.complexity() + 2);
+    NumText::Value v = numText.value();
+    v = -v;
+    return NumText(v, "-" + numText.textWithBraces(),
+                   NumText::NeedBraces, numText.complexity() + 2);
 }
 
 NumText operator+ (const NumText& left, const NumText& right) {
@@ -97,16 +99,16 @@ ostream& operator<< (ostream& out,
     return out << "(" << value.value() << ":\'" << value.text() << "\')";
 }
 
-ostream& operator<< (ostream& out,
-                     decimal::decimal32 const& value)
-{
-    return out << decimal_to_float(value);
-}
+//ostream& operator<< (ostream& out,
+//                     decimal::decimal32 const& value)
+//{
+//    return out << decimal_to_float(value);
+//}
 
 NumText::Text NumText::valueToText(const NumText::Value& value) {
 
     stringstream sstr;
-    sstr << decimal_to_float(value);
+    sstr << (int) value;
     return sstr.str();
 }
 

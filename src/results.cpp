@@ -45,7 +45,7 @@ void Results::print(std::ostream& os) {
     for (int i = 0; i < amount; ++i) {
         cout << d_solutions[i].text()
              << " = "
-             << d_solutions[i].value()
+             << (int) d_solutions[i].value()
              << endl;
     }
 }

@@ -4,10 +4,12 @@
 #include <vector>
 #include <decimal/decimal>
 #include <iostream>
+#include <commfrac.h>
 
 class NumText {
 public:
-    typedef std::decimal::decimal32 Value;
+//    typedef std::decimal::decimal32 Value;
+    typedef CommFrac Value;
     typedef std::string Text;
     enum Braces { NoBraces, NeedBraces };
 

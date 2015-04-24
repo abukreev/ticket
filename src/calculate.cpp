@@ -30,9 +30,11 @@ void calculate(const vector<NumText>& numbers) {
             modifiedValues.push_back(*i +   *(i + 1));
             modifiedValues.push_back(*i -   *(i + 1));
             modifiedValues.push_back(*i *   *(i + 1));
-            modifiedValues.push_back(*i /   *(i + 1));
-            modifiedValues.push_back(*i * -(*(i + 1)));
-            modifiedValues.push_back(*i / -(*(i + 1)));
+            if (0 != (i + 1)->value()) {
+                modifiedValues.push_back(*i /   *(i + 1));
+            }
+//            modifiedValues.push_back(*i * -(*(i + 1)));
+//            modifiedValues.push_back(*i / -(*(i + 1)));
 
             for (vector<NumText>::const_iterator j = modifiedValues.begin();
                  j != modifiedValues.end(); ++j) {
