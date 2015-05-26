@@ -2,13 +2,11 @@
 #define NUMTEXT_H
 
 #include <vector>
-#include <decimal/decimal>
 #include <iostream>
 #include <commfrac.h>
 
 class NumText {
 public:
-//    typedef std::decimal::decimal32 Value;
     typedef CommFrac Value;
     typedef std::string Text;
     enum Braces { NoBraces, NeedBraces };
@@ -63,9 +61,6 @@ inline const NumText::Text& NumText::text() const {
 
     return d_text;
 }
-
-std::ostream& operator<< (std::ostream& out,
-                          std::decimal::decimal32 const& value);
 
 bool simpler(const NumText& left, const NumText& right);
 

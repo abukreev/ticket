@@ -99,12 +99,6 @@ ostream& operator<< (ostream& out,
     return out << "(" << value.value() << ":\'" << value.text() << "\')";
 }
 
-//ostream& operator<< (ostream& out,
-//                     decimal::decimal32 const& value)
-//{
-//    return out << decimal_to_float(value);
-//}
-
 NumText::Text NumText::valueToText(const NumText::Value& value) {
 
     stringstream sstr;
